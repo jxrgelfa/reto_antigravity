@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>DROPZONE // Urban Apparel & Streetwear Studio</title>
+  <meta name="description" content="Plataforma de drops de ropa urbana, hoodies oversize, cargo pants tácticos y gráfica underground contemporánea.">
+
+  <!-- TailwindCSS v3 CDN Oficial -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              lime: '#22c55e',
+              violet: '#8b5cf6',
+              dark: '#09090b',
+              surface: '#18181b',
+              border: '#27272a'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Estilos complementarios y microinteracciones -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+
+  <!-- ========================================================================
+       BARRA DE NAVEGACIÓN SUPERIOR FIJA (NAVBAR)
+       ======================================================================== -->
+  <header class="sticky top-0 z-40 w-full border-b border-zinc-200 dark:border-zinc-800/80 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <!-- Logo de Marca -->
+      <a href="#inicio" data-view-target="inicio" class="flex items-center gap-2.5 group">
+        <div class="w-8 h-8 rounded-lg bg-zinc-900 dark:bg-zinc-100 flex items-center justify-center text-white dark:text-zinc-950 font-heading font-extrabold text-sm shadow-md transition-transform group-hover:scale-105">
+          DZ
+        </div>
+        <div class="flex flex-col">
+          <span class="font-heading font-bold text-base tracking-tight text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
+            DROPZONE
+            <span class="w-2 h-2 rounded-full bg-emerald-500 pulse-dot inline-block" title="Drop 04 en vivo"></span>
+          </span>
+          <span class="text-[10px] font-mono-tag tracking-wider text-zinc-500 dark:text-zinc-400 uppercase -mt-1">
+            Urban Streetwear
+          </span>
+        </div>
+      </a>
+
+      <!-- Enlaces de Navegación Desktop -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="#inicio" data-view-target="inicio" class="text-emerald-500 font-semibold transition-colors hover:text-emerald-600 dark:hover:text-emerald-400">
+          Inicio
+        </a>
+        <a href="#catalogo" data-view-target="catalogo" class="text-zinc-600 dark:text-zinc-400 transition-colors hover:text-emerald-500 dark:hover:text-emerald-400">
+          Catálogo Drops
+        </a>
+        <a href="#reserva" data-view-target="reserva" class="text-zinc-600 dark:text-zinc-400 transition-colors hover:text-emerald-500 dark:hover:text-emerald-400">
+          Apartar Prenda
+        </a>
+      </nav>
+
+      <!-- Botones de Acción (Theme Toggle & CTA) -->
+      <div class="flex items-center gap-3">
+        <!-- Selector Dark / Light Mode -->
+        <button type="button" 
+          class="theme-toggle-btn p-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 hover:border-emerald-500 transition-colors"
+          title="Alternar Modo Oscuro / Claro"
+          aria-label="Alternar tema">
+          <span class="theme-toggle-icon text-sm">☀️</span>
+        </button>
+
+        <!-- Botón CTA Desktop -->
+        <button type="button" 
+          data-view-target="reserva"
+          class="hidden sm:inline-flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 force-text-white rounded-xl text-xs font-mono-tag font-bold tracking-wider shadow-lg shadow-emerald-500/20 transition-all hover:scale-105">
+          <span>RESERVAR DROP</span>
+          <span>→</span>
+        </button>
+
+        <!-- Botón Menú Hamburguesa para Móviles -->
+        <button type="button" 
+          id="btn-mobile-menu-open"
+          class="md:hidden p-2 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 text-zinc-800 dark:text-zinc-200 focus:outline-none"
+          aria-label="Abrir menú de navegación">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       DRAWER LATERAL PARA SMARTPHONES (MENÚ MÓVIL)
+       ======================================================================== -->
+  <div id="mobile-drawer" class="hidden fixed inset-0 z-50 md:hidden">
+    <div id="mobile-drawer-overlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm"></div>
+    <div class="fixed top-0 right-0 bottom-0 w-3/4 max-w-xs bg-white dark:bg-zinc-900 border-l border-zinc-200 dark:border-zinc-800 p-6 flex flex-col justify-between shadow-2xl">
+      <div>
+        <div class="flex items-center justify-between pb-6 border-b border-zinc-200 dark:border-zinc-800">
+          <span class="font-heading font-bold text-base text-zinc-900 dark:text-zinc-100">
+            MENÚ DROPZONE
+          </span>
+          <button type="button" id="btn-mobile-menu-close" class="p-1.5 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100" aria-label="Cerrar menú">
+            ✕
+          </button>
+        </div>
+        <nav class="flex flex-col gap-4 mt-6">
+          <a href="#inicio" data-view-target="inicio" class="text-base font-medium text-zinc-800 dark:text-zinc-200 hover:text-emerald-500 py-1">
+            🏠 Inicio / Portada
+          </a>
+          <a href="#catalogo" data-view-target="catalogo" class="text-base font-medium text-zinc-800 dark:text-zinc-200 hover:text-emerald-500 py-1">
+            👕 Catálogo de Drops (6)
+          </a>
+          <a href="#reserva" data-view-target="reserva" class="text-base font-medium text-zinc-800 dark:text-zinc-200 hover:text-emerald-500 py-1">
+            📝 Apartar Prenda
+          </a>
+        </nav>
+      </div>
+      <div class="pt-6 border-t border-zinc-200 dark:border-zinc-800">
+        <div class="text-xs font-mono-tag text-zinc-500 mb-2">SEASON 2026 • VOL. 04</div>
+        <button type="button" data-view-target="reserva" class="w-full py-2.5 bg-emerald-500 hover:bg-emerald-600 force-text-white rounded-xl text-xs font-mono-tag font-bold">
+          PEDIR AHORA
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       CONTENIDO PRINCIPAL SPA (3 VISTAS)
+       ======================================================================== -->
+  <main class="flex-grow">
+
+    <!-- ----------------------------------------------------------------------
+         VISTA 1: INICIO / PORTADA (HERO SECTION)
+         ---------------------------------------------------------------------- -->
+    <section id="view-inicio" class="spa-view relative overflow-hidden pt-12 pb-24 md:py-24 bg-grid-pattern">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Texto Hero -->
+          <div class="lg:col-span-7 flex flex-col items-start">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono-tag text-xs font-semibold mb-6">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 pulse-dot"></span>
+              DROP 04 LIVE // THE VOID ARCHIVE
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-heading font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100 leading-[1.08] mb-6">
+              INDUMENTARIA URBANA DE <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-violet-500">ALTO GRAMAJE</span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-zinc-600 dark:text-zinc-400 mb-8 max-w-xl leading-relaxed">
+              Siluetas oversize, proceso de lavado a la piedra (acid wash), algodón pesado de 380 GSM y confección técnica contemporánea inspirada en el brutalismo underground.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4 w-full sm:w-auto">
+              <button type="button" 
+                data-view-target="catalogo"
+                class="w-full sm:w-auto px-8 py-3.5 bg-zinc-900 hover:bg-zinc-800 dark:bg-emerald-500 dark:hover:bg-emerald-600 force-text-white rounded-xl text-sm font-mono-tag font-bold tracking-wide shadow-xl transition-all hover:scale-105 flex items-center justify-center gap-2">
+                <span>EXPLORAR CATÁLOGO</span>
+                <span>↓</span>
+              </button>
+
+              <button type="button" 
+                data-view-target="reserva"
+                class="w-full sm:w-auto px-6 py-3.5 border border-zinc-300 dark:border-zinc-700 hover:border-emerald-500 dark:hover:border-emerald-400 rounded-xl text-sm font-mono-tag font-semibold text-zinc-800 dark:text-zinc-200 transition-all flex items-center justify-center">
+                Apartar Lote Limitado
+              </button>
+            </div>
+
+            <!-- Métricas / Badges del Drop -->
+            <div class="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-zinc-200 dark:border-zinc-800 w-full max-w-lg">
+              <div>
+                <div class="text-2xl font-heading font-bold text-zinc-900 dark:text-zinc-100">380g</div>
+                <div class="text-xs text-zinc-500 font-mono-tag">Heavy Cotton</div>
+              </div>
+              <div>
+                <div class="text-2xl font-heading font-bold text-emerald-500">50 Pcs</div>
+                <div class="text-xs text-zinc-500 font-mono-tag">Lote Exclusivo</div>
+              </div>
+              <div>
+                <div class="text-2xl font-heading font-bold text-violet-500">0%</div>
+                <div class="text-xs text-zinc-500 font-mono-tag">Encogimiento</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Banner Visual / Lookbook Hero -->
+          <div class="lg:col-span-5 relative">
+            <div class="relative mx-auto max-w-md lg:max-w-none rounded-3xl overflow-hidden border border-zinc-200 dark:border-zinc-800 shadow-2xl bg-zinc-900">
+              <img src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=900&q=80" 
+                alt="Modelo luciendo buzo oversize urbano Dropzone" 
+                class="w-full h-[460px] object-cover object-top opacity-90 hover:scale-105 transition-transform duration-700">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-6">
+                <span class="text-xs font-mono-tag text-emerald-400 font-bold tracking-widest uppercase">
+                  DROP 04 // EDITORIAL
+                </span>
+                <span class="text-lg font-heading font-bold force-text-white mt-1">
+                  "THE UNDERGROUND CAPSULE"
+                </span>
+                <span class="text-xs text-zinc-300 font-mono-tag mt-0.5">
+                  Buenos Aires • Tokyo • Berlin
+                </span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         VISTA 2: CATÁLOGO DE TARJETAS (CARDS GRID)
+         ---------------------------------------------------------------------- -->
+    <section id="view-catalogo" class="spa-view hidden py-16 bg-zinc-100/50 dark:bg-zinc-900/40 border-y border-zinc-200 dark:border-zinc-800/80">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Encabezado de la Sección -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+          <div>
+            <div class="text-xs font-mono-tag font-bold tracking-widest text-emerald-600 dark:text-emerald-400 uppercase mb-1">
+              INVENTARIO ACTIVO // 6 PIEZAS
+            </div>
+            <h2 class="text-3xl sm:text-4xl font-heading font-extrabold text-zinc-900 dark:text-zinc-100 tracking-tight">
+              CATÁLOGO DE PRENDAS STREETWEAR
+            </h2>
+          </div>
+          <p class="text-sm text-zinc-600 dark:text-zinc-400 max-w-md">
+            Haz clic en <strong>"Ver detalles"</strong> en cualquier prenda para inspeccionar materiales, medidas de corte y apartado directo.
+          </p>
+        </div>
+
+        <!-- Grilla de Tarjetas (Inyectada por app.js) -->
+        <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Las 6 tarjetas se renderizan aquí dinámicamente -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         VISTA 3: FORMULARIO INTERACTIVO (RESERVA / PEDIDO)
+         ---------------------------------------------------------------------- -->
+    <section id="view-reserva" class="spa-view hidden py-16">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 sm:p-10 shadow-xl">
+          <div class="text-center mb-8">
+            <span class="px-3 py-1 text-xs font-mono-tag font-bold rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 uppercase">
+              RESERVA ANTICIPADA
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-heading font-extrabold text-zinc-900 dark:text-zinc-100 mt-2 mb-2">
+              APARTÁ TU PRENDA DEL DROP
+            </h2>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 max-w-md mx-auto">
+              Llená el formulario con tus datos para asegurar tu número de serie antes de que el drop se agote.
+            </p>
+          </div>
+
+          <!-- Formulario -->
+          <form id="reservation-form" class="space-y-6">
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <!-- Nombre -->
+              <div>
+                <label for="input-nombre" class="block text-xs font-mono-tag font-semibold uppercase text-zinc-700 dark:text-zinc-300 mb-2">
+                  Nombre Completo *
+                </label>
+                <input type="text" id="input-nombre" required placeholder="Ej: Marcos Silva" 
+                  class="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all text-sm">
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label for="input-email" class="block text-xs font-mono-tag font-semibold uppercase text-zinc-700 dark:text-zinc-300 mb-2">
+                  Correo Electrónico *
+                </label>
+                <input type="email" id="input-email" required placeholder="tu@email.com" 
+                  class="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all text-sm">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              <!-- Selector de Prenda -->
+              <div class="sm:col-span-2">
+                <label for="input-prenda" class="block text-xs font-mono-tag font-semibold uppercase text-zinc-700 dark:text-zinc-300 mb-2">
+                  Prenda a Reservar *
+                </label>
+                <select id="input-prenda" required 
+                  class="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all text-sm">
+                  <!-- Opciones cargadas por JS -->
+                </select>
+              </div>
+
+              <!-- Selector de Talle -->
+              <div>
+                <label for="input-talle" class="block text-xs font-mono-tag font-semibold uppercase text-zinc-700 dark:text-zinc-300 mb-2">
+                  Talle Preferido *
+                </label>
+                <select id="input-talle" required 
+                  class="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all text-sm">
+                  <option value="" disabled selected>Elegir...</option>
+                  <option value="S">S (Small Oversize)</option>
+                  <option value="M">M (Medium Boxy)</option>
+                  <option value="L">L (Large Relaxed)</option>
+                  <option value="XL">XL (Extra Large)</option>
+                  <option value="Unico">Talle Único (Accesorios)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Notas de Envío -->
+            <div>
+              <label for="input-notas" class="block text-xs font-mono-tag font-semibold uppercase text-zinc-700 dark:text-zinc-300 mb-2">
+                Ciudad / Dirección de Despacho (Opcional)
+              </label>
+              <textarea id="input-notas" rows="3" placeholder="Indícanos tu ciudad y cualquier detalle sobre la entrega..."
+                class="w-full px-4 py-3 rounded-xl border border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition-all text-sm"></textarea>
+            </div>
+
+            <!-- Botón Submit -->
+            <button type="submit" 
+              class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 force-text-white rounded-xl text-sm font-mono-tag font-bold tracking-wider shadow-lg shadow-emerald-500/20 transition-all hover:scale-[1.01] flex items-center justify-center gap-2">
+              <span>CONFIRMAR RESERVA DE DROP</span>
+              <span>✓</span>
+            </button>
+
+            <div class="text-center text-xs text-zinc-500 font-mono-tag">
+              🔒 Tus datos están protegidos. Te enviaremos un correo con las instrucciones de pago y número de seguimiento.
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       MODAL DE DETALLES DE PRENDA (POPUP FLOTANTE INTERACTIVO)
+       ======================================================================== -->
+  <div id="product-modal" class="hidden fixed inset-0 z-50 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div id="modal-backdrop-area" class="fixed inset-0 bg-black/75 modal-backdrop"></div>
+    <div class="min-h-full flex items-center justify-center p-4 sm:p-6 text-center">
+      
+      <div class="relative w-full max-w-2xl bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 sm:p-8 text-left shadow-2xl overflow-hidden transition-all">
+        
+        <!-- Botón Cerrar '✕' -->
+        <button type="button" 
+          id="btn-close-modal"
+          class="absolute top-4 right-4 w-9 h-9 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white flex items-center justify-center transition-colors focus:outline-none"
+          aria-label="Cerrar modal">
+          ✕
+        </button>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start">
+          <!-- Foto Grande -->
+          <div class="rounded-2xl overflow-hidden bg-zinc-100 dark:bg-zinc-800 h-64 sm:h-80 relative">
+            <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
+            <div class="absolute top-3 left-3 flex gap-2">
+              <span id="modal-badge" class="px-2.5 py-1 text-xs font-mono-tag font-bold rounded-full force-text-white bg-emerald-500"></span>
+              <span id="modal-drop" class="px-2.5 py-1 text-xs font-mono-tag rounded-full bg-black/70 force-text-white"></span>
+            </div>
+          </div>
+
+          <!-- Detalles de Prenda -->
+          <div class="flex flex-col justify-between h-full">
+            <div>
+              <div id="modal-price" class="text-xl font-mono-tag font-extrabold text-emerald-600 dark:text-emerald-400 mb-1"></div>
+              <h3 id="modal-title" class="text-xl font-heading font-bold text-zinc-900 dark:text-zinc-100 mb-3"></h3>
+              
+              <div class="text-xs font-mono-tag text-zinc-500 uppercase mb-1">Especificación Textil:</div>
+              <p id="modal-desc" class="text-xs sm:text-sm text-zinc-600 dark:text-zinc-400 mb-4 leading-relaxed"></p>
+
+              <!-- Selector de talles -->
+              <div class="mb-6">
+                <span class="block text-xs font-mono-tag text-zinc-500 uppercase mb-2">Seleccionar Talle Disponible:</span>
+                <div id="modal-sizes-list" class="flex flex-wrap gap-2">
+                  <!-- Botones de talle inyectados por JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Botón Transferir a Formulario de Pedido -->
+            <button type="button" 
+              id="btn-modal-reserve"
+              class="w-full py-3 bg-emerald-500 hover:bg-emerald-600 force-text-white rounded-xl text-xs font-mono-tag font-bold tracking-wider shadow-md transition-all hover:scale-105 flex items-center justify-center gap-2">
+              <span>PEDIR ESTA PRENDA AHORA</span>
+              <span>→</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       TOAST DE CONFIRMACIÓN VISUAL VERDE (SUCCESS STATE)
+       ======================================================================== -->
+  <aside id="success-toast" class="hidden fixed bottom-6 right-6 z-50 max-w-md bg-zinc-900 text-white border-2 border-emerald-500 rounded-2xl p-4 shadow-2xl flex items-start gap-3" role="status" aria-live="polite">
+    <div class="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-white font-bold text-sm shrink-0">
+      ✓
+    </div>
+    <div class="text-xs leading-relaxed text-zinc-200">
+      <div id="toast-msg"></div>
+    </div>
+  </aside>
+
+  <!-- ========================================================================
+       PIE DE PÁGINA (FOOTER)
+       ======================================================================== -->
+  <footer class="border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-3">
+        <div class="w-7 h-7 rounded-lg bg-zinc-900 dark:bg-zinc-100 flex items-center justify-center text-white dark:text-zinc-900 font-heading font-extrabold text-xs">
+          DZ
+        </div>
+        <div class="text-xs text-zinc-500 font-mono-tag">
+          © 2026 DROPZONE STREETWEAR • Seminario Antigravity 2.0 • SPA Edition
+        </div>
+      </div>
+
+      <div class="flex items-center gap-6 text-xs text-zinc-500 font-mono-tag">
+        <span>TailwindCSS v3 CDN</span>
+        <span>•</span>
+        <span>HTML5 Semántico</span>
+        <span>•</span>
+        <span>Zero Backend</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script principal de lógica -->
+  <script src="app.js"></script>
+</body>
+</html>
